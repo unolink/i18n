@@ -1,4 +1,4 @@
-package templategolib
+package i18n
 
 import "testing"
 
