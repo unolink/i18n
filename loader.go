@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-	"path/filepath"
+	stdpath "path"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -22,13 +22,13 @@ func (t *Translator) LoadFromFS(fsys fs.FS, dir string) error {
 			return nil
 		}
 
-		ext := strings.ToLower(filepath.Ext(path))
+		ext := strings.ToLower(stdpath.Ext(path))
 		if ext != ".yaml" && ext != ".yml" {
 			return nil
 		}
 
-		filename := filepath.Base(path)
-		locale := Locale(strings.TrimSuffix(filename, filepath.Ext(filename)))
+		filename := stdpath.Base(path)
+		locale := Locale(strings.TrimSuffix(filename, stdpath.Ext(filename)))
 
 		data, err := fs.ReadFile(fsys, path)
 		if err != nil {
